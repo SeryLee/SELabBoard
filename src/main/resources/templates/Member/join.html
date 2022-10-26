@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입!</title>
+    <style>
+        .field-error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+회원가입~~~
+</body>
+<form th:action="@{/member/join_check}" th:object="${member}" method="post">
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+    </div>
+    <table>
+        <tr>
+            <th>ID(이메일)</th>
+            <td>
+                <input th:field="*{userId}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{userId}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>비밀번호</th>
+            <td>
+                <input type="password" th:field="*{password}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{password}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>이름</th>
+            <td>
+                <input th:field="*{name}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{name}"></div>
+            </td>
+        </tr>
+        <tr>
+            <th>주소</th>
+            <td style="display: flex"><input th:field="*{address}" th:errorclass="field-error">
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-primary"
+                            id="address_kakao">주소검색</button>
+                </div>
+                <div class="field-error" th:errors="*{address}"></div>
+            </td>
+            <script
+                    src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <script>
+                window.onload = function(){
+                    document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+                        //카카오 지도 발생
+                        new daum.Postcode({
+                            oncomplete: function(data) { //선택시 입력값 세팅
+                                document.getElementById("address").value = data.address; // 주소 넣기
+                            }
+                        }).open();
+                    });
+                }
+            </script>
+        </tr>
+    </table>
+    <input type="submit" th:value="회원가입">
+    <a th:href="@{/}"><input type="button" th:value="홈으로"></a>
+    <a th:href="@{/member/login}"><input type="button" th:value="로그인"></a>
+</form>
+</html>

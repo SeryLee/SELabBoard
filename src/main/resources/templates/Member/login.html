@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인!</title>
+    <style>
+        .field-error {
+            color: red;
+        }
+    </style>
+    </style>
+</head>
+<body>
+로그인하세요~~
+<form th:action="@{/member/login_check}" th:object="${member}" method="post">
+    <input type="hidden" th:value="${redirectURI}" th:name="redirectURI">
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+    </div>
+    <div>
+        아이디(이메일) : <input th:field="*{userId}" th:errorclass="field-error">
+        <div class="field-error" th:errors="*{userId}"></div>
+    </div>
+    <div>
+        비밀번호 : <input type="password" th:field="*{password}" th:errorclass="field-error">
+        <div class="field-error" th:errors="*{password}"></div>
+    </div>
+    <input type="submit" th:value="로그인">
+    <a th:href="@{/}"><input type="button" th:value="홈으로"></a>
+    <a th:href="@{/member/join}"><input type="button" th:value="회원가입"></a>
+</form>
+</body>
+</html>
