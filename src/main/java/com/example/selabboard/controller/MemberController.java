@@ -72,12 +72,12 @@ public class MemberController {
             return "Member/login";
         }
 
-        //cookie
+        //cookie-login
 //        Cookie cookie = new Cookie("userId", String.valueOf(memberCheck.getUserId()));
 //        cookie.setPath("/");
 //        response.addCookie(cookie);
 
-        //session
+        //session-login
         HttpSession session = request.getSession();
         session.setAttribute("loginMember", memberCheck);
 

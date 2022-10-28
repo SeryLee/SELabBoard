@@ -19,8 +19,8 @@ public class Board {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "memberId")
+    @ManyToOne
+    @JoinColumn(name = "memberid")
     private Member member;
 
     @Column(name = "title")
@@ -33,7 +33,6 @@ public class Board {
     private LocalDateTime date;
 
     public void setMember(Member member) {
-
         this.member = member;
         member.getBoards().add(this);
     }

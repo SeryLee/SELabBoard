@@ -1,6 +1,5 @@
 package com.example.selabboard.model.dto;
 
-import com.example.selabboard.model.entity.Member;
 import lombok.Data;
 
 import javax.validation.constraints.Email;

@@ -49,26 +49,19 @@ public class BoardController {
     }
 
     @PostMapping("/insert")
-    public String insertBoard_do(@ModelAttribute("board") WriteBoardForm writeBoardForm, HttpSession session) {
+    public String insertBoard(@ModelAttribute("board") WriteBoardForm writeBoardForm, HttpSession session) {
         Member member = (Member) session.getAttribute("loginMember");
         writeBoardForm.setDate(LocalDateTime.now());
-
-//        Board createBoard = Board.createByWriteForm(writeBoardForm);
-//        Board board = writeBoardForm.toEntity();
-//        board.setDate(LocalDateTime.now());
-//        board.setMember(member);
         boardService.insertBoard(writeBoardForm, member);
-
         return "redirect:/board/list";
     }
 
     @PutMapping("/update")
-    public String updateBoard_do(@ModelAttribute("board") Board board) {
+    public String updateBoard(@ModelAttribute("board") Board board) {
         Long id = board.getId();
         String title = board.getTitle();
         String content = board.getContent();
         boardService.updateBoard(id, title, content);
-
         return "redirect:/board/list";
     }
 
@@ -78,15 +71,5 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
-    private Member createMember() {
-        Member member = Member.builder()
-                .name("이름")
-                .address("주소")
-                .password("비번")
-                .userId("ㅂㅈㄷ123")
-                .boards(new ArrayList<>())
-                .build();
-        return member;
-    }
 }
 

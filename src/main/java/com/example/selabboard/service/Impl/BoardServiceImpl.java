@@ -4,7 +4,6 @@ import com.example.selabboard.model.dto.WriteBoardForm;
 import com.example.selabboard.model.entity.Board;
 import com.example.selabboard.model.entity.Member;
 import com.example.selabboard.repository.BoardRepository;
-import com.example.selabboard.repository.MemberRepository;
 import com.example.selabboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
