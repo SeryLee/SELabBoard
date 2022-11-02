@@ -19,7 +19,7 @@ public class Member {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Board> boards = new ArrayList<>();
 
     @Column(name = "userid")

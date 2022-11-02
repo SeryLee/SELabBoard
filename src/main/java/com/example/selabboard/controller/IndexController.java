@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -29,9 +30,11 @@ public class IndexController {
         //Member member = memberRepository.findByLoginUserId(userId);
 
         //session
-        Member member = (Member) session.getAttribute("loginMember");
-        if(member == null) {return "index";}
-        model.addAttribute("member", member);
+        Long memberId = (Long) session.getAttribute("loginMemberId");
+        if(memberId == null) {return "index";}
+
+        Optional<Member> loginMember = memberRepository.findById(memberId);
+        model.addAttribute("memberName", loginMember.get().getName());
         return "index";
     }
 }

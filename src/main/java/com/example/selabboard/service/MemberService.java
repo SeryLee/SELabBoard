@@ -9,4 +9,5 @@ public interface MemberService {
     void addMember(Member newMember);
     boolean checkUserIdExist(String userId);
     Member loginMemberCheck(LoginMember loginMember);
+    Member findById(Long id);
 }

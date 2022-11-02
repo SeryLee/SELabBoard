@@ -1,0 +1,9 @@
+drop table member;
+create table member(
+id bigint,
+userid varchar(30),
+password varchar(30),
+name varchar(30),
+address varchar(30),
+primary key(id)
+)

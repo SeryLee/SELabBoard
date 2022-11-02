@@ -6,14 +6,12 @@
 </head>
 <body>
 <h1>에스이랩 게시판</h1>
-<th:block th:if="${member}">
-    <div th:each="member : ${member}">
-        <span th:text="${member.name}"></span>님 반갑습니다.
-    </div>
+<th:block th:if="${memberName}">
+    <span th:text="${memberName}"></span>님 반갑습니다.
     <a th:href="@{/board/list}"><input type="button" th:value="게시판"></a>
     <a th:href="@{/member/logout}"><input type="button" th:value="로그아웃"></a>
 </th:block>
-<th:block th:unless="${member}">
+<th:block th:unless="${memberName}">
     <a th:href="@{/board/list}"><input type="button" th:value="게시판"></a>
     <a th:href="@{/member/join}"><input type="button" th:value="회원가입"></a>
     <a th:href="@{/member/login}"><input type="button" th:value="로그인"></a>

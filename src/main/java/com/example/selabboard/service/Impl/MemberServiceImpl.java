@@ -42,4 +42,10 @@ public class MemberServiceImpl implements MemberService {
                 .orElse(null);
     }
 
+    @Override
+    public Member findById(Long id) {
+        return memberRepository.findById(id)
+                .orElseThrow(NullPointerException::new);
+    }
+
 }
