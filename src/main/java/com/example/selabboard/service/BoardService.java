@@ -9,7 +9,7 @@ import java.util.List;
 public interface BoardService {
     List<Board> selectBoardList() throws Exception;
     Board selectBoardDetail(Long boardId);
-    void insertBoard(WriteBoardForm board, Member member);
+    void insertBoard(WriteBoardForm board, Long memberId);
     void updateBoard(Long id, String title, String content);
     void deleteBoard(Long id);
 

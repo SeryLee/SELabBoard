@@ -50,9 +50,9 @@ public class BoardController {
 
     @PostMapping("/insert")
     public String insertBoard(@ModelAttribute("board") WriteBoardForm writeBoardForm, HttpSession session) {
-        Member member = (Member) session.getAttribute("loginMember");
-        writeBoardForm.setDate(LocalDateTime.now());
-        boardService.insertBoard(writeBoardForm, member);
+        Long loginMemberId = (Long) session.getAttribute("loginMemberId");
+
+        boardService.insertBoard(writeBoardForm, loginMemberId);
         return "redirect:/board/list";
     }
 
