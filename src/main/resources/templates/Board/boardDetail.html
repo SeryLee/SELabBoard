@@ -27,7 +27,7 @@
         <input type="submit" th:value="수정">
     </form>
     <a th:href="@{/board/list}"><input type="button" th:value="목록"></a>
-    <form th:action="@{/board/delete}" th:object="${board}" method="post">
+    <form th:action="@{'/board/delete/'+${board.id}}" th:object="${board}" method="post">
         <input type="hidden" name="_method" th:value="delete">
         <input type="hidden" th:field="*{id}">
         <button>삭제</button>

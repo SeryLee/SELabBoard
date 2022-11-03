@@ -2,17 +2,19 @@ package com.example.selabboard.interceptor;
 
 import com.example.selabboard.model.entity.Board;
 import com.example.selabboard.service.BoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@Slf4j
+@RequiredArgsConstructor
 public class WriteCheckInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private BoardService boardService;
+    private final BoardService boardService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -30,7 +32,6 @@ public class WriteCheckInterceptor implements HandlerInterceptor {
             response.sendRedirect("/board/list");
             return false;
         }
-        System.out.println("writer check success");
         return true;
     }
 }
