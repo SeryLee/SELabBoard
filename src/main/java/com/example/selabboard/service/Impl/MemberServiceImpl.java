@@ -6,6 +6,7 @@ import com.example.selabboard.repository.MemberRepository;
 import com.example.selabboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,9 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void addMember(Member newMember) {
+        String encodedPassword = passwordEncoder.encode(newMember.getPassword());
+        newMember.setPassword(encodedPassword);
         memberRepository.save(newMember);
     }
 
@@ -38,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
         String userId = loginMember.getUserId();
         String password = loginMember.getPassword();
         return memberRepository.findByUserId(userId)
-                .filter(m -> m.getPassword().equals(password))
+                .filter(m -> passwordEncoder.matches(password, m.getPassword()))
                 .orElse(null);
     }
 
