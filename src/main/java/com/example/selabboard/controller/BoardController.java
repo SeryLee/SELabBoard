@@ -2,7 +2,10 @@ package com.example.selabboard.controller;
 
 import com.example.selabboard.model.dto.WriteBoardForm;
 import com.example.selabboard.model.entity.Board;
+import com.example.selabboard.model.entity.Member;
+import com.example.selabboard.repository.MemberRepository;
 import com.example.selabboard.service.BoardService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +16,11 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/board")
 public class BoardController {
-
+    private final MemberRepository memberRepository;
     private final BoardService boardService;
-
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
 
     @GetMapping("/list")
     public String getBoardList(Model model) throws Exception {
@@ -51,8 +51,10 @@ public class BoardController {
     @PostMapping("/insert")
     public String insertBoard(@ModelAttribute("board") WriteBoardForm writeBoardForm, HttpSession session) {
         Long loginMemberId = (Long) session.getAttribute("loginMemberId");
+        Member loginMember = memberRepository.findById(loginMemberId)
+                .orElse(null);
 
-        boardService.insertBoard(writeBoardForm, loginMemberId);
+        boardService.insertBoard(writeBoardForm, loginMember);
         return "redirect:/board/list";
     }
 

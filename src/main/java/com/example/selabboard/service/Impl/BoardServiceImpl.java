@@ -5,7 +5,6 @@ import com.example.selabboard.model.entity.Board;
 import com.example.selabboard.model.entity.Member;
 import com.example.selabboard.repository.BoardRepository;
 import com.example.selabboard.service.BoardService;
-import com.example.selabboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,6 @@ import java.util.NoSuchElementException;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
-    private final MemberService memberService;
 
     @Override
     public List<Board> selectBoardList() {
@@ -36,14 +34,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void insertBoard(WriteBoardForm board, Long memberId) {
+    public void insertBoard(WriteBoardForm board, Member loginMember) {
 
-        Member findMember = memberService.findById(memberId);
-        board.setDate(LocalDateTime.now());
         Board createBoard = Board.createByWriteForm(board);
 
-        createBoard.setMember(findMember);
-
+        createBoard.setMember(loginMember);
+        createBoard.setDate(LocalDateTime.now());
         boardRepository.save(createBoard);
     }
 
