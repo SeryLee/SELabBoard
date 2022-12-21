@@ -2,18 +2,13 @@ package com.example.selabboard.controller;
 
 import com.example.selabboard.model.dto.WriteBoardForm;
 import com.example.selabboard.model.entity.Board;
-import com.example.selabboard.model.entity.Member;
 import com.example.selabboard.service.BoardService;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -48,6 +43,7 @@ public class BoardController {
     public String writeBoard(@ModelAttribute("board") Board board, Model model){
         if(board.getId() != null) {
             model.addAttribute("boardInfo", board);
+            return "Board/boardUpdate";
         }
         return "Board/boardWrite";
     }
@@ -62,10 +58,7 @@ public class BoardController {
 
     @PutMapping("/update")
     public String updateBoard(@ModelAttribute("board") Board board) {
-        Long id = board.getId();
-        String title = board.getTitle();
-        String content = board.getContent();
-        boardService.updateBoard(id, title, content);
+        boardService.updateBoard(board);
         return "redirect:/board/list";
     }
 

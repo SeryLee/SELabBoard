@@ -48,8 +48,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void updateBoard(Long id, String title, String content) {
-        boardRepository.update(id, title, content);
+    public void updateBoard(Board board) {
+        boardRepository.save(board);
     }
 
     @Override

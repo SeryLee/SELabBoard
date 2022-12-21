@@ -19,8 +19,4 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select b from board b where b.id = :id")
     Optional<Board> findOneByBoardId(long id);
 
-    @Modifying
-    @Query("update board b set b.title = :title, b.content = :content where b.id = :id")
-    void update(long id, String title, String content);
-
 }
