@@ -2,12 +2,14 @@ package com.example.selabboard;
 
 import com.example.selabboard.model.entity.Board;
 import com.example.selabboard.model.entity.Member;
+import com.example.selabboard.model.entity.MemberRole;
 import com.example.selabboard.repository.BoardRepository;
 import com.example.selabboard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ public class StartEventHandler {
 
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @EventListener(ApplicationReadyEvent.class)
     public void insertDefaultBoard() {
@@ -45,11 +48,12 @@ public class StartEventHandler {
 
     private Member createMember() {
         return Member.builder()
-                .userId("test@naver.com")
-                .password("1234")
-                .name("테스트")
-                .address("테스트 주소")
+                .userId("admin@naver.com")
+                .password(passwordEncoder.encode("1234"))
+                .name("관리자")
+                .address("관리자 주소")
                 .boards(new ArrayList<>())
+                .memberRole(MemberRole.ADMIN)
                 .build();
     }
 }
