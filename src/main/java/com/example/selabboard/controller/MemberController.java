@@ -4,15 +4,12 @@ import com.example.selabboard.model.dto.JoinMember;
 import com.example.selabboard.model.dto.LoginMember;
 import com.example.selabboard.model.entity.Member;
 import com.example.selabboard.service.MemberService;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -75,10 +72,10 @@ public class MemberController {
             return "Member/login";
         }
 
-        //cookie-login
-//        Cookie cookie = new Cookie("userId", String.valueOf(memberCheck.getUserId()));
-//        cookie.setPath("/");
-//        response.addCookie(cookie);
+        /*cookie-login*/
+        /*Cookie cookie = new Cookie("userId", String.valueOf(memberCheck.getUserId()));
+        cookie.setPath("/");
+        response.addCookie(cookie);*/
 
         //session-login
         HttpSession session = request.getSession();
@@ -92,17 +89,17 @@ public class MemberController {
 
     }
 
-    //cookie - logout
-//    @GetMapping("/logout")
-//    public String logout(HttpServletResponse response) {
-//        Cookie cookie = new Cookie("userId", null);
-//        cookie.setMaxAge(0);
-//        cookie.setPath("/");
-//        response.addCookie(cookie);
-//        return "redirect:/";
-//    }
+    /*cookie - logout*/
+    /*@GetMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("userId", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        return "redirect:/";
+    }*/
 
-    //session - logout
+    /*session - logout*/
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

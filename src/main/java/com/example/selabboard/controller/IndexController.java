@@ -22,19 +22,19 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model
-//          , @CookieValue(name = "userId", required = false) String userId
+          /*, @CookieValue(name = "userId", required = false) String userId*/
             , HttpSession session) {
 
-        //cookie
-        //if(userId == null) {return "index";}
-        //Member member = memberRepository.findByLoginUserId(userId);
+        /*cookie*/
+        /*if(userId == null) {return "index";}
+        Member member = memberRepository.findByLoginUserId(userId);*/
 
-        //session
+        /*session*/
         Long memberId = (Long) session.getAttribute("loginMemberId");
         if(memberId == null) {return "index";}
 
         Optional<Member> loginMember = memberRepository.findById(memberId);
-        model.addAttribute("memberName", loginMember.get().getName());
+        loginMember.ifPresent(member -> model.addAttribute("memberName", member.getName()));
         return "index";
     }
 }
