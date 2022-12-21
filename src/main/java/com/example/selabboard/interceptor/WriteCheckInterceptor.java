@@ -29,7 +29,7 @@ public class WriteCheckInterceptor implements HandlerInterceptor {
         Long id = (Long) session.getAttribute("loginMemberId");
 
         if(!board.getMember().getId().equals(id)) {
-            response.sendRedirect("/board/list");
+            response.sendRedirect("/board/detail?id="+boardId);
             return false;
         }
         return true;

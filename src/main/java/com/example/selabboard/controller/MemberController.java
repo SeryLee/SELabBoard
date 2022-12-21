@@ -31,10 +31,11 @@ public class MemberController {
     }
 
     @PostMapping("/join_check")
-    public String joinUser(@Valid @ModelAttribute("member") JoinMember joinMember, BindingResult bindingResult, Model model) {
+    public String joinUser(@Valid @ModelAttribute("member") JoinMember joinMember, BindingResult bindingResult, Model model, @RequestParam("passwordCheck") String passwordCheck) {
         if(bindingResult.hasErrors()) {
             return "Member/join";
         }
+
         String userId = joinMember.getUserId();
         boolean duplicateIdCheck = memberService.checkUserIdExist(userId);
 
@@ -43,6 +44,11 @@ public class MemberController {
             return "Member/join";
         }
 
+        String password = joinMember.getPassword();
+        if(!password.equals(passwordCheck)) {
+            bindingResult.reject("notMatchPassword", "비밀번호가 일치하지 않습니다");
+            return "Member/join";
+        }
         Member member = Member.createByJoinMember(joinMember);
 
         memberService.addMember(member);

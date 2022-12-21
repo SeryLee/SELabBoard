@@ -19,6 +19,9 @@ public class Member {
     @Column(name = "id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private MemberRole memberRole;
+
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Board> boards = new ArrayList<>();
 
@@ -34,11 +37,6 @@ public class Member {
     @Column(name = "address")
     private String address;
 
-    public void addBoard(Board board) {
-        board.setMember(this);
-        this.boards.add(board);
-    }
-
     public static Member createByJoinMember(JoinMember joinMember) {
         Member member = new Member();
         member.setUserId(joinMember.getUserId());
@@ -46,6 +44,7 @@ public class Member {
         member.setName(joinMember.getName());
         member.setAddress(joinMember.getAddress());
         member.setBoards(new ArrayList<>());
+        member.setMemberRole(MemberRole.USER);
         return member;
     }
 }
