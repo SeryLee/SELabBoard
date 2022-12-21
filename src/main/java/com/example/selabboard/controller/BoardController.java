@@ -20,8 +20,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-    @Setter(onMethod_ = @Autowired)
-    private BoardService boardService;
+
+    private final BoardService boardService;
+
+    public BoardController(BoardService boardService) {
+        this.boardService = boardService;
+    }
 
     @GetMapping("/list")
     public String getBoardList(Model model) throws Exception {

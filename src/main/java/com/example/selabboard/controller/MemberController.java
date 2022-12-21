@@ -22,8 +22,11 @@ import javax.validation.Valid;
 @RequestMapping("/member")
 public class MemberController {
 
-    @Setter(onMethod_ = @Autowired)
-    private MemberService memberService;
+    private final MemberService memberService;
+
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
+    }
 
     @GetMapping("/join")
     public String joinUserForm(@ModelAttribute("member") JoinMember joinMember) {

@@ -14,7 +14,7 @@ import java.util.Optional;
 @Controller
 public class IndexController {
 
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     public IndexController(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
