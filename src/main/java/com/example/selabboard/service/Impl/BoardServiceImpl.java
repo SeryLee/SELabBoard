@@ -7,11 +7,12 @@ import com.example.selabboard.repository.BoardRepository;
 import com.example.selabboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -23,8 +24,8 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
     @Override
-    public List<Board> selectBoardList() {
-        return boardRepository.findAllBy();
+    public Page<Board> selectBoardList(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
 
     @Override

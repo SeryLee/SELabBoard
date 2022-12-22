@@ -7,6 +7,10 @@ import com.example.selabboard.repository.MemberRepository;
 import com.example.selabboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +27,10 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public String getBoardList(Model model) throws Exception {
-        List<Board> boards = boardService.selectBoardList();
+    public String getBoardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
+        Page<Board> boards = boardService.selectBoardList(pageable);
         model.addAttribute("boardList", boards);
+        model.addAttribute("maxPage", 5);
         return "Board/board";
     }
 

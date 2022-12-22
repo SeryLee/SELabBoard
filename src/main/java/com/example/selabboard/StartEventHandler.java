@@ -30,7 +30,7 @@ public class StartEventHandler {
         Member defaultMember = createMember();
         memberRepository.save(defaultMember);
         List<Board> boards = new ArrayList<>();
-        for (int i=0; i<5; i++) {
+        for (int i=0; i<150; i++) {
             Board board = createBoard(defaultMember);
             boards.add(board);
         }
