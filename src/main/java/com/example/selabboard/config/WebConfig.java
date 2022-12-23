@@ -11,11 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
-
-//    @Bean
-//    public WriteCheckInterceptor writeCheckInterceptor() {
-//        return new WriteCheckInterceptor();
-//    }
     private final BoardService boardService;
 
     @Override
