@@ -13,4 +13,5 @@ public class WriteBoardForm {
     @NotEmpty
     private String content;
     private LocalDateTime date;
+    private Long fileId;
 }

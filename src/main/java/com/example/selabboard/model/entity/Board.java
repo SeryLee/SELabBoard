@@ -32,6 +32,9 @@ public class Board {
     @Column(name = "date")
     private LocalDateTime date;
 
+    @Column
+    private Long fileId;
+
     public void setMember(Member member) {
         this.member = member;
         member.getBoards().add(this);
@@ -42,6 +45,7 @@ public class Board {
         board.setTitle(writeBoardForm.getTitle());
         board.setContent(writeBoardForm.getContent());
         board.setDate(writeBoardForm.getDate());
+        board.setFileId(writeBoardForm.getFileId());
         board.setMember(new Member());
         return board;
     }
