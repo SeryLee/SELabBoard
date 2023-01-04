@@ -57,10 +57,12 @@ public class BoardController {
         Board selectedBoard = boardService.selectBoardDetail(boardId);
 
         Long fileId = selectedBoard.getFileId();
-        File findFile = fileService.getFile(fileId);
+        if(fileId != null) {
+            File findFile = fileService.getFile(fileId);
+            model.addAttribute("file", findFile);
+        }
 
         model.addAttribute("board", selectedBoard);
-        model.addAttribute("file", findFile);
         return "Board/boardDetail";
     }
 
